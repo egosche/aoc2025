@@ -4,11 +4,8 @@
 # Compiled Object files
 *.slo
 *.lo
-*.o
-*.obj
-day*
-!day*_*
-!day*.cpp
+bin/
+build/
 
 # Precompiled Headers
 *.gch

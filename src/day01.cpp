@@ -4,7 +4,7 @@
 
 int main()
 {
-    std::ifstream file("day01_input.txt");
+    std::ifstream file("data/day01_input.txt");
     if (!file.is_open())
     {
         std::cerr << "Could not open input file.\n";
