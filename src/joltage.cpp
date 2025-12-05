@@ -1,10 +1,8 @@
-#include <iostream>
-#include <cstdint>
-#include <fstream>
-#include <string>
-#include <algorithm>
-#include <vector>
 #include "joltage.hpp"
+#include <string>
+#include <vector>
+#include <algorithm> // for std::max
+#include <cstdint>   // ensure uint64_t is defined
 
 /**
  * @brief Compute the maximum two-digit joltage from a bank of batteries.
