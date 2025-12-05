@@ -2,6 +2,23 @@
 #include <fstream>
 #include <string>
 
+/**
+ * @brief Program entry point.
+ *
+ * Reads a list of dial rotation commands from data/day01_input.txt.
+ * Each line is formatted as:
+ *
+ *     L10   (rotate left 10 steps)
+ *     R25   (rotate right 25 steps)
+ *
+ * The dial is circular and spans values 0–99. It starts at position 50.
+ *
+ * The program counts:
+ *   - Part 1: How many times the dial ends a full instruction exactly on 0.
+ *   - Part 2: How many times the dial *passes* position 0 during every individual click.
+ *
+ * A "click" is a single-step movement.
+ */
 int main()
 {
     std::ifstream file("data/day01_input.txt");

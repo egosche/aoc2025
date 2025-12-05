@@ -4,6 +4,16 @@
 #include <string>
 #include "range_tools.hpp"
 
+/**
+ * @brief Program entry point.
+ *
+ * Reads a single line containing comma-separated numeric ranges (e.g. "10-20,30-35").
+ * For every ID in those ranges, it checks:
+ *   - Part 1: whether the number is made of two identical halves.
+ *   - Part 2: whether the number consists of repeated identical chunks of any valid size.
+ *
+ * Accumulates the sum of all numbers that satisfy each rule and prints both totals.
+ */
 int main()
 {
     std::ifstream file("data/day02_input.txt");
