@@ -2,7 +2,8 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
-#include "compute.hpp"
+#include <vector>
+#include "joltage.hpp"
 
 /**
  * @brief Compute the maximum two-digit joltage from a bank of batteries.
@@ -15,16 +16,16 @@
  * This brute-force approach tries all valid pairs.
  *
  * @param s A string of digits ('1' to '9').
- * @return int The largest two-digit value that can be formed.
+ * @return int The largest two-digit number that can be formed.
  */
 int max_joltage_from_bank(const std::string &s)
 {
     int best = 0;
 
-    for (std::size_t i = 0; i + 1 < s.size(); ++i)
+    for (size_t i = 0; i + 1 < s.size(); ++i)
     {
         int a = s[i] - '0';
-        for (std::size_t j = i + 1; j < s.size(); ++j)
+        for (size_t j = i + 1; j < s.size(); ++j)
         {
             int b = s[j] - '0';
             int val = 10 * a + b;
@@ -40,49 +41,50 @@ int max_joltage_from_bank(const std::string &s)
  * @brief Part 2: Compute the largest possible 12-digit number
  *        by selecting exactly 12 digits in order from the string.
  *
- * This uses a greedy monotonic stack approach:
+ * Greedy monotonic-stack logic:
  *
- * - We walk through digits left to right.
- * - We keep a result vector acting like a stack.
- * - While the current digit is better than the last kept digit,
- *   and we can still complete 12 digits later, we pop.
+ * - Traverse digits left to right.
+ * - Maintain a stack (vector<char>) storing chosen digits.
+ * - If the current digit is larger than the last chosen digit AND
+ *   there are enough characters remaining to complete a 12-digit result,
+ *   pop the previous digit.
+ *
+ * This ensures the lexicographically largest possible 12-digit number.
  *
  * @param s The battery bank digits.
- * @return unsigned long long The resulting 12-digit number.
+ * @return uint64_t The resulting 12-digit number.
  */
-unsigned long long max12_joltage_from_bank(const std::string &s)
+uint64_t max12_joltage_from_bank(const std::string &s)
 {
-    const int K = 12;
-    int n = s.size();
+    constexpr size_t K = 12;
+    const size_t n = s.size();
 
     std::vector<char> result;
     result.reserve(K);
 
-    int to_pick = K;
-
-    for (int i = 0; i < n; ++i)
+    for (size_t i = 0; i < n; ++i)
     {
         char c = s[i];
+        size_t remaining = n - i;
 
-        // While we can improve the number by removing the previous digit
-        // and still have enough digits left to fill all 12 positions:
+        // While current digit is better than last chosen digit
+        // AND we can still form a full 12-digit number afterward.
         while (!result.empty() &&
                result.back() < c &&
-               (int)result.size() - 1 + (n - i) >= to_pick)
+               (result.size() - 1 + remaining >= K))
         {
             result.pop_back();
         }
 
-        // If we still need more digits, take this one.
-        if ((int)result.size() < to_pick)
+        // Take digit if we still need more to reach 12
+        if (result.size() < K)
             result.push_back(c);
     }
 
-    // Convert 12 chars to a 64-bit integer
-    unsigned long long value = 0;
+    // Convert char digits to integer
+    uint64_t value = 0;
     for (char c : result)
-    {
         value = value * 10 + (c - '0');
-    }
+
     return value;
 }

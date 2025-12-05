@@ -16,7 +16,7 @@ EXECUTABLES = $(addprefix $(BIN_DIR)/,$(DAYS))
 # Shared sources (included in all builds)
 SHARED_SRCS = \
 	$(SRC_DIR)/range_tools.cpp \
-	$(SRC_DIR)/compute.cpp
+	$(SRC_DIR)/joltage.cpp
 
 # Object files
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(DAY_SRCS) $(SHARED_SRCS))
